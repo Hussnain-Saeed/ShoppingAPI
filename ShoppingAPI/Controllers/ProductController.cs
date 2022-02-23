@@ -12,10 +12,12 @@ using ShoppingAPI.Models;
 
 namespace ShoppingAPI.Controllers
 {
+    // Yahan Sirf Admin aye
     public class ProductController : ApiController
     {
         private ShoppingContext db = new ShoppingContext();
 
+        [AuthorizeAdmin]
         public IHttpActionResult GetProducts(string keyword="",int skip=0,int take=10)
         {
             return Json(db.Products.Where(x=>string.IsNullOrEmpty(keyword) || x.Title.Contains(keyword)).OrderByDescending(x=>x.AddedOn).Skip(skip).Take(take).ToList());
